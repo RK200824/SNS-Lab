@@ -1,0 +1,34 @@
+# Autosave and backup files
+*.asv
+*.m~
+*.autosave
+
+# Compiled MEX files
+*.mex*
+*.mexa64
+*.mexw64
+*.mexmaci64
+
+# Code generation output
+codegen/
+slprj/
+
+# Simulink cache and generated files
+*.slxc
+*.autosave
+*_grt_rtw/
+*_ert_rtw/
+
+# Large binary outputs (uncomment if you don't want to track them)
+*.mat
+*.fig
+*.mp4
+*.avi
+
+# MATLAB Drive and misc
+*.prj.bak
+octave-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
