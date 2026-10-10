@@ -1,4 +1,4 @@
-%program to perform convolution using fourier transform
+%program to perform convolution using laplace transform
 
 clear
 close all
@@ -9,11 +9,11 @@ syms t
 x1 = exp(-2*t)*heaviside(t);
 x2 = exp(-5*t)*heaviside(t);
 
-y1 = fourier(x1);
-y2 = fourier(x2);
+y1 = laplace(x1);
+y2 = laplace(x2);
 
 y3 = y1 * y2;
-x3 = ifourier(y3);
+x3 = ilaplace(y3);
 
 fplot(x1)
 hold on
