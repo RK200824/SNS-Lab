@@ -15,9 +15,18 @@ y2 = fourier(x2);
 y3 = y1 * y2;
 x3 = ifourier(y3);
 
+subplot(2, 1, 1)
 fplot(x1)
 hold on
 fplot(x2)
-hold on
+title('Original Waveforms')
+xlabel('Time')
+ylabel('Amplitude')
+grid on
+
+subplot(2, 1, 2)
 fplot(x3)
+title('Convolution in Time Domain')
+xlabel('Time')
+ylabel('Amplitude')
 grid on

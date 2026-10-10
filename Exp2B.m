@@ -1,59 +1,49 @@
-%Fourier Transform
-clc
-clear all
-close all
+% Reconstructing a square wave using odd harmonics of its Fourier series and observing Gibbs' phenomenon
 
-syms t w
+clear
+close all
+clc
+
+syms x
+
+y  = heaviside(x) - heaviside(x - pi);   % function in question
+a0 = (1/pi)*int(y, x, -pi, pi);
+
+values = [1, 3, 5, 7, 9, 11, 13, 15];    % odd harmonics
+S = a0/2;                                % start with the DC term
+
+for n = values
+    % Fourier coefficients
+    an = (1/pi)*int(y*cos(n*x), x, -pi, pi);
+    bn = (1/pi)*int(y*sin(n*x), x, -pi, pi);
+    S  = S + an*cos(n*x) + bn*sin(n*x);
+
+    if n == 5
+        S5 = S;                          % keep partial sum up to 5th harmonic
+    end
+
+    disp(['Iteration no. ', num2str(n)])
+end
 
 figure(1)
 
-% Fourier Transform of exponential
-f = exp(-2*abs(t));
-subplot(221)
-fplot(f)
-hold on
-title('Exponential Waveform')
-f_FT1 = fourier(f);
-fplot(f_FT1)
+subplot(3, 1, 1)
+fplot(y, [-pi, pi], 'b', 'LineWidth', 1.5); hold on
+fplot(S5, [-pi, pi], 'r');
+title('Original vs. reconstruction (harmonics up to 5)')
+legend('Original', 'Reconstructed')
 grid on
 
-% Fourier Transform of step
-f = heaviside(t);
-subplot(222)
-fplot(f)
-hold on
-title('Step Waveform')
-f_FT2 = fourier(f);
-fplot(f_FT2)
+subplot(3, 1, 2)
+fplot(y, [-pi, pi], 'b', 'LineWidth', 1.5); hold on
+fplot(S, [-pi, pi], 'r');
+title('Original vs. reconstruction (harmonics up to 15)')
+legend('Original', 'Reconstructed')
 grid on
 
-% Fourier Transform of cosine
-f = 2*cos(3*t);
-subplot(223)
-fplot(f)
-hold on
-title('Cosine Waveform')
-f_FT3 = fourier(f);
-fplot(f_FT3)
-grid on
-
-% Fourier Transform of sine
-f = 4*sin(5*t);
-subplot(224)
-fplot(f)
-hold on
-title('Sine Waveform')
-f_FT4 = fourier(f);
-fplot(f_FT4)
-grid on
-
-figure(2)
-
-% Fourier Transform of impulse
-f = dirac(t);
-fplot(f)
-hold on
-title('Impulse Waveform')
-f_FT5 = fourier(f);
-fplot(f_FT5)
+subplot(3, 1, 3)
+fplot(y, [-0.5, 0.5], 'b', 'LineWidth', 1.5); hold on
+fplot(S, [-0.5, 0.5], 'r');
+title('Zoom at the discontinuity: Gibbs overshoot')
+legend('Original', 'Reconstructed')
 grid on
