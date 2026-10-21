@@ -32,3 +32,9 @@ octave-workspace
 # OS junk
 .DS_Store
 Thumbs.db
+
+*.pdsbak
+*.pdsclip
+*.workspace
+*.pdsprj.bak
+Backup*/
