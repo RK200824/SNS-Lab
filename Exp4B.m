@@ -7,7 +7,7 @@ clear
 num = input('Enter the numerator of the transfer function: ')
 den = input('Enter the denominator of the transfer function: ')
 
-[z, p, k] = tf2zp(num,den);
+[z, p, k] = tf2zpk(num,den);
 
 disp('For the transfer function:')
 tf(num, den)
